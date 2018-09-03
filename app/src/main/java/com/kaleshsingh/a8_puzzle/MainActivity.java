@@ -5,10 +5,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private Puzzle puzzle;
@@ -19,21 +21,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        puzzle = new Puzzle((GridLayout) findViewById(R.id.board_grid), getTileImages());
+        puzzle = new Puzzle(this, findViewById(R.id.board_grid), getTileImages());
+        shuffleBoard();
         setClickListeners();
+    }
+
+    private void shuffleBoard() {
+        for (int i = 0; i < (Math.random() * (16)) + 15; ++i) {
+            moveRandomTile();
+        }
+    }
+
+    private void moveRandomTile() {
+        List<Integer> legalMoves = new ArrayList<>(puzzle.getLegalMoves());
+        int move = legalMoves.get((int) (Math.random() * legalMoves.size()));
+        swapTiles(move);
     }
 
     private void onTileClick(View v) {
         final ImageView clickedView = (ImageView) v;
-        int move = puzzle.getEmptyTile() - Integer.parseInt((String) clickedView.getTag());
-        swapTiles(clickedView);
+        int clickedTile = Integer.parseInt((String) clickedView.getTag());
+        swapTiles(clickedTile);
     }
 
-    private void swapTiles(ImageView clickedView) {
+    private void swapTiles(int clickedTile) {
         int emptyTile = puzzle.getEmptyTile();
-        int clickedTile = Integer.parseInt((String) clickedView.getTag());
         ImageView[] boardPositions = puzzle.getBoardPositions();
-        boardPositions[emptyTile].setImageBitmap(((BitmapDrawable) clickedView.getDrawable()).getBitmap());
+        Bitmap clickedBitmap
+                = ((BitmapDrawable) boardPositions[clickedTile].getDrawable())
+                .getBitmap();
+        boardPositions[emptyTile].setImageBitmap(clickedBitmap);
         boardPositions[clickedTile].setImageBitmap(null);
         boardPositions[clickedTile].setImageDrawable(null);
 
@@ -47,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setClickListeners() {
         for (ImageView imageView : puzzle.getBoardPositions()) {
-//            imageView.setClickable(true);
             imageView.setOnClickListener(v -> onTileClick(v));
         }
     }

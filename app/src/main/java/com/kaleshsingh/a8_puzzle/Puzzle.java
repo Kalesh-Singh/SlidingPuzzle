@@ -1,9 +1,11 @@
 package com.kaleshsingh.a8_puzzle;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +49,7 @@ class Puzzle {
     private int emptyTile;
     private Set<Integer> legalMoves;
     private final Bitmap[] solvedState;
+    private final Context context;
 
     public int getEmptyTile() {
         return emptyTile;
@@ -60,7 +63,12 @@ class Puzzle {
         return this.tiles;
     }
 
-    public Puzzle(GridLayout board, Bitmap[][] tileImages) {
+    public Set<Integer> getLegalMoves() {
+        return this.legalMoves;
+    }
+
+    public Puzzle(Context context, GridLayout board, Bitmap[][] tileImages) {
+        this.context = context;
         this.board = board;
         this.tiles = new Tile[BOARD_SIZE];
         initializeTiles(tileImages);
@@ -73,11 +81,17 @@ class Puzzle {
 
     public void updateBoard() {
         this.emptyTile = findEmptyTile();
-        this.legalMoves = getLegalMoves();
+        this.legalMoves = findLegalMoves();
         enableLegalMoves();
         boolean won = gameWon();
         for (int i = 0; i < BOARD_SIZE; ++i) {
             boardPositions[i].setImageBitmap((won) ? tiles[i].green : tiles[i].blue);
+            if (won) {
+                boardPositions[i].setEnabled(false);
+            }
+        }
+        if (won) {
+            Toast.makeText(this.context, "You won!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,7 +119,7 @@ class Puzzle {
         return -1;
     }
 
-    private Set<Integer> getLegalMoves() {
+    private Set<Integer> findLegalMoves() {
         Set<Integer> legalMoves = new HashSet<>();
             for (int i = 0; i < BOARD_SIZE; ++i) {
                 int move = emptyTile - i;
