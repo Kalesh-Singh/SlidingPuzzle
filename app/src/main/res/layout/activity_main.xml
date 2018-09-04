@@ -6,79 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/game_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="@string/puzzle_name"
+        android:textSize="20pt"
+        app:layout_constraintBottom_toTopOf="@id/board_grid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.v7.widget.GridLayout
         android:id="@+id/board_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:columnCount="3"
-        app:rowCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/game_text"
+        app:rowCount="3">
 
         <ImageView
-            android:id="@+id/pos0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:tag="0" />
 
         <ImageView
-            android:id="@+id/pos1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="1"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="1" />
 
         <ImageView
-            android:id="@+id/pos2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="2"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="2" />
 
         <ImageView
-            android:id="@+id/pos3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="3"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="3" />
 
         <ImageView
-            android:id="@+id/pos4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="4"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="4" />
 
         <ImageView
-            android:id="@+id/pos5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="5"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="5" />
 
         <ImageView
-            android:id="@+id/pos6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="6"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="6" />
 
         <ImageView
-            android:id="@+id/pos7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="7"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="7" />
 
         <ImageView
-            android:id="@+id/pos8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:tag="8"/>
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:tag="8" />
 
     </android.support.v7.widget.GridLayout>
 

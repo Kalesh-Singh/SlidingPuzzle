@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">8-Puzzle</string>
+    <string name="app_name">Assignment 1</string>
+    <string name="puzzle_name">Sliding Numbers</string>
+    <string name="winning_message">You won!</string>
 </resources>
